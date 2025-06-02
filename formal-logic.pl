@@ -209,3 +209,41 @@ demonstracao :-
     write('4. Testando inferencias:'), nl,
     teste_inferencia,
     write('Demonstracao concluida!'), nl.
+
+/*
+DOCUMENTAÇÃO E USO
+Este sistema é uma demonstração de lógica formal em Prolog, abrangendo conceitos como inferência lógica, operadores lógicos, quantificadores, silogismos e relações de parentesco. Ele inclui uma base de conhecimento com pessoas, filósofos e regras de inferência.
+COMO USAR ESTE SISTEMA:
+
+1. COMANDOS BÁSICOS:
+   pessoa(socrates).          % Verifica se Sócrates é pessoa
+   filosofo(X).               % Lista todos os filósofos
+   sabio(aristoteles).        % Verifica se Aristóteles é sábio
+
+2. COMANDOS DE TESTE:
+   teste_basico.              % Executa testes básicos
+   executar_todos_testes.     % Executa todos os testes
+   verificar_consistencia.    % Verifica consistência da base
+
+3. COMANDOS DE LISTAGEM:
+   listar_pessoas.            % Lista todas as pessoas
+   listar_filosofos.          % Lista todos os filósofos
+   listar_sabios.             % Lista todos os sábios
+
+4. COMANDOS DE CONSULTA:
+   consultar_pessoa(socrates). % Consulta informações sobre Sócrates
+   demonstracao.               % Demonstra o sistema completo
+   menu.                       % Mostra este menu
+
+5. EXEMPLOS DE USO:
+   ?- sabio(X).               % Quem é sábio?
+   ?- interessante(maria).    % Maria é interessante?
+   ?- irmao(X, Y).           % Quem são irmãos?
+
+ESTRUTURA DA BASE:
+- 7 pessoas definidas
+- 3 filósofos gregos
+- Sistema de parentesco
+- Regras de inferência lógica
+- Operadores lógicos completos
+*/
