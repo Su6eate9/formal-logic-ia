@@ -188,3 +188,24 @@ menu :-
     write('- listar_filosofos.'), nl,
     write('- consultar_pessoa(X).'), nl,
     nl.
+
+    % PARTE 10: PREDICADOS ESPECIAIS
+    % Verifica consistência da base
+verificar_consistencia :-
+    write('=== VERIFICACAO DE CONSISTENCIA ==='), nl,
+    (todos_mortais -> write('- Base consistente: todos mortais') ; write('- Inconsistencia detectada')), nl,
+    (existe_filosofo -> write('- Filosofos encontrados na base') ; write('- Nenhum filosofo na base')), nl,
+    nl.
+
+% Demonstra capacidades do sistema
+demonstracao :-
+    write('=== DEMONSTRACAO DO SISTEMA ==='), nl,
+    write('1. Listando pessoas:'), nl,
+    listar_pessoas,
+    write('2. Listando filosofos:'), nl,
+    listar_filosofos,
+    write('3. Listando sabios:'), nl,
+    listar_sabios,
+    write('4. Testando inferencias:'), nl,
+    teste_inferencia,
+    write('Demonstracao concluida!'), nl.
