@@ -62,3 +62,13 @@ interessante(X) :-
 nao_filosofo(X) :- 
     pessoa(X),
     \+ filosofo(X).
+
+% PARTE 4: QUANTIFICADORES
+% Quantificador Universal - todos são mortais
+todos_mortais :- 
+    forall(pessoa(X), mortal(X)).
+
+% Quantificador Existencial - existe filósofo
+existe_filosofo :- 
+    pessoa(X),
+    filosofo(X).
