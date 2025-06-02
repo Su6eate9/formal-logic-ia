@@ -61,7 +61,6 @@ interessante(X) :-
 % Negação (NOT)
 nao_filosofo(X) :- 
     pessoa(X),
-    \+ filosofo(X).
 
 % PARTE 4: QUANTIFICADORES
 % Quantificador Universal - todos são mortais
@@ -72,3 +71,15 @@ todos_mortais :-
 existe_filosofo :- 
     pessoa(X),
     filosofo(X).
+  
+% PARTE 5: SILOGISMOS
+% Silogismo Barbara
+silogismo_barbara(X, mortal(X)) :-
+    pessoa(X),
+    mortal(X).
+
+% Modus Ponens
+modus_ponens(P, Q) :-
+    call(P),
+    (call(P) -> call(Q)).
+
