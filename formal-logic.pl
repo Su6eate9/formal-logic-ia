@@ -162,3 +162,29 @@ executar_todos_testes :-
     teste_quantificadores,
     teste_parentesco,
     write('TODOS OS TESTES CONCLUIDOS'), nl.
+
+% PARTE 9: SISTEMA DE CONSULTA
+% Consulta informações sobre uma pessoa
+consultar_pessoa(Pessoa) :-
+    write('Consultando: '), write(Pessoa), nl,
+    (   pessoa(Pessoa) 
+    ->  (   write('- E uma pessoa'), nl,
+            (mortal(Pessoa) -> write('- E mortal') ; write('- Nao e mortal')), nl,
+            (filosofo(Pessoa) -> write('- E filosofo') ; write('- Nao e filosofo')), nl,
+            (grego(Pessoa) -> write('- E grego') ; write('- Nao e grego')), nl,
+            (sabio(Pessoa) -> write('- E sabio') ; write('- Nao e sabio')), nl
+        )
+    ;   write('- Pessoa nao encontrada na base'), nl
+    ).
+
+% Menu do sistema
+menu :-
+    nl,
+    write('=== SISTEMA DE LOGICA FORMAL ==='), nl,
+    write('Comandos disponíveis:'), nl,
+    write('- teste_basico.'), nl,
+    write('- executar_todos_testes.'), nl,
+    write('- listar_pessoas.'), nl,
+    write('- listar_filosofos.'), nl,
+    write('- consultar_pessoa(X).'), nl,
+    nl.
