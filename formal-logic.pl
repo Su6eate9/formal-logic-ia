@@ -45,3 +45,20 @@ sabio(X) :-
 imortal(X) :- 
     pessoa(X),
     \+ mortal(X).
+
+% PARTE 3: OPERADORES LÓGICOS
+% Conjunção (AND)
+filosofo_mortal(X) :- 
+    filosofo(X),
+    mortal(X).
+
+% Disjunção (OR)
+interessante(X) :- 
+    filosofo(X).
+interessante(X) :- 
+    grego(X).
+
+% Negação (NOT)
+nao_filosofo(X) :- 
+    pessoa(X),
+    \+ filosofo(X).
