@@ -83,3 +83,40 @@ modus_ponens(P, Q) :-
     call(P),
     (call(P) -> call(Q)).
 
+% PARTE 6: SISTEMA DE PARENTESCO
+% Relações familiares
+pai(joao, maria).
+pai(joao, pedro).
+mae(ana, maria).
+mae(ana, pedro).
+
+% Progenitor
+progenitor(X, Y) :- pai(X, Y).
+progenitor(X, Y) :- mae(X, Y).
+
+% Irmãos
+irmao(X, Y) :- 
+    progenitor(Z, X),
+    progenitor(Z, Y),
+    X \= Y.
+
+% Avô/Avó
+avo(X, Z) :- 
+    progenitor(X, Y),
+    progenitor(Y, Z).
+
+% PARTE 7: PREDICADOS DE UTILIDADE
+% Lista todas as pessoas
+listar_pessoas :-
+    findall(X, pessoa(X), Pessoas),
+    write('Pessoas: '), write(Pessoas), nl.
+
+% Lista todos os filósofos
+listar_filosofos :-
+    findall(X, filosofo(X), Filosofos),
+    write('Filosofos: '), write(Filosofos), nl.
+
+% Lista todos os sábios
+listar_sabios :-
+    findall(X, sabio(X), Sabios),
+    write('Sabios: '), write(Sabios), nl.
