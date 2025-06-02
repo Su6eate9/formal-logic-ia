@@ -120,3 +120,45 @@ listar_filosofos :-
 listar_sabios :-
     findall(X, sabio(X), Sabios),
     write('Sabios: '), write(Sabios), nl.
+
+% PARTE 8: SISTEMA DE TESTES
+% Teste básico de funcionamento
+teste_basico :-
+    write('=== TESTE BASICO ==='), nl,
+    write('Verificando fatos basicos:'), nl,
+    (pessoa(socrates) -> write('- Socrates e pessoa: OK') ; write('- Erro: Socrates')), nl,
+    (filosofo(socrates) -> write('- Socrates e filosofo: OK') ; write('- Erro: filosofo')), nl,
+    (sabio(socrates) -> write('- Socrates e sabio: OK') ; write('- Erro: sabio')), nl,
+    nl.
+
+% Teste de inferência
+teste_inferencia :-
+    write('=== TESTE DE INFERENCIA ==='), nl,
+    (humano_mortal(socrates) -> write('- Inferencia humano_mortal: OK') ; write('- Erro inferencia')), nl,
+    (filosofo_mortal(platao) -> write('- Filosofo mortal: OK') ; write('- Erro filosofo_mortal')), nl,
+    (interessante(aristoteles) -> write('- Interessante: OK') ; write('- Erro interessante')), nl,
+    nl.
+
+% Teste de quantificadores
+teste_quantificadores :-
+    write('=== TESTE QUANTIFICADORES ==='), nl,
+    (todos_mortais -> write('- Todos mortais: OK') ; write('- Erro todos_mortais')), nl,
+    (existe_filosofo -> write('- Existe filosofo: OK') ; write('- Erro existe_filosofo')), nl,
+    nl.
+
+% Teste de parentesco
+teste_parentesco :-
+    write('=== TESTE PARENTESCO ==='), nl,
+    (progenitor(joao, maria) -> write('- Progenitor joao-maria: OK') ; write('- Erro progenitor')), nl,
+    (irmao(maria, pedro) -> write('- Irmaos maria-pedro: OK') ; write('- Erro irmaos')), nl,
+    nl.
+
+% Teste completo do sistema
+executar_todos_testes :-
+    write('EXECUTANDO BATERIA COMPLETA DE TESTES'), nl,
+    nl,
+    teste_basico,
+    teste_inferencia,
+    teste_quantificadores,
+    teste_parentesco,
+    write('TODOS OS TESTES CONCLUIDOS'), nl.
