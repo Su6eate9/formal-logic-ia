@@ -32,7 +32,7 @@ executar_opcao(7) :- demonstracao, menu_interativo.
 executar_opcao(8) :- write('Saindo do sistema. Ate logo!'), nl.
 executar_opcao(_) :- write('Opcao invalida, tente novamente.'), nl, menu_interativo.
 
-PARTE 1: BASE DE CONHECIMENTO
+% PARTE 1: BASE DE CONHECIMENTO
 % Pessoas na base de conhecimento
 pessoa(socrates).
 pessoa(aristoteles).
@@ -89,33 +89,28 @@ interessante(X) :-
 interessante(X) :- 
     grego(X).
 
-
-% Negação (NOT) ===
+% Negação (NOT)
 % O predicado nao_filosofo verifica se uma pessoa NÃO é filósofo.
 % Funciona utilizando a negação em Prolog (\+), que significa "não é provado que...".
-
 nao_filosofo(X) :- 
     pessoa(X),     % Garante que X é uma pessoa da base
     \+ filosofo(X). % E que NÃO é um filósofo
 
-% === OPERADOR CONDICIONAL (SE → ENTÃO) ===
+% OPERADOR CONDICIONAL (SE → ENTÃO)
 % condicional(P, Q) é verdadeiro se P for falso OU Q for verdadeiro.
 % Representa a lógica: "Se P então Q".
-
 condicional(P, Q) :- 
     \+ call(P); call(Q).
 
-% bicondicional (↔) ===
+% BICONDICIONAL (↔)
 % bicondicional(P, Q) é verdadeiro se P e Q tiverem o mesmo valor lógico.
 % Ou seja, ambos verdadeiros ou ambos falsos.
-
 bicondicional(P, Q) :- 
     (call(P), call(Q)); 
     (\+ call(P), \+ call(Q)).
 
-% Exclusivo (XOR) ===
+% XOR EXCLUSIVO
 % xor(P, Q) é verdadeiro se P ou Q forem verdadeiros, mas NÃO ambos.
-
 xor(P, Q) :- 
     (call(P), \+ call(Q));
     (\+ call(P), call(Q)).
@@ -179,7 +174,6 @@ primo(X, Y) :-
     progenitor(W, Y), 
     irmao(Z, W),
     X \= Y.
-
 
 % PARTE 7: PREDICADOS DE UTILIDADE
 % Lista todas as pessoas
@@ -265,8 +259,8 @@ menu :-
     write('- consultar_pessoa(X).'), nl,
     nl.
 
-    % PARTE 10: PREDICADOS ESPECIAIS
-    % Verifica consistência da base
+% PARTE 10: PREDICADOS ESPECIAIS
+% Verifica consistência da base
 verificar_consistencia :-
     write('=== VERIFICACAO DE CONSISTENCIA ==='), nl,
     (todos_mortais -> write('- Base consistente: todos mortais') ; write('- Inconsistencia detectada')), nl,
@@ -286,11 +280,8 @@ demonstracao :-
     teste_inferencia,
     write('Demonstracao concluida!'), nl.
 
-    % PARTE 11: EXPLICABILIDADE DO RACIOCÍNIO
-
-% EXPLICABILIDADE
+% PARTE 11: EXPLICABILIDADE DO RACIOCÍNIO
 % O predicado explicar(P) tenta explicar porque P é verdadeiro.
-
 explicar(P) :- 
     call(P), 
     write('O fato '), write(P), write(' é verdadeiro porque:'), nl,
