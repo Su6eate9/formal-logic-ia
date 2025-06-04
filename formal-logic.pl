@@ -255,6 +255,51 @@ demonstracao :-
     teste_inferencia,
     write('Demonstracao concluida!'), nl.
 
+    % PARTE 11: EXPLICABILIDADE DO RACIOCÍNIO
+
+% EXPLICABILIDADE
+% O predicado explicar(P) tenta explicar porque P é verdadeiro.
+
+explicar(P) :- 
+    call(P), 
+    write('O fato '), write(P), write(' é verdadeiro porque:'), nl,
+    explicar_base(P), !.
+
+explicar(P) :- 
+    \+ call(P), 
+    write('O fato '), write(P), write(' é falso ou não pode ser provado.'), nl.
+
+% Regras específicas de explicação
+explicar_base(pessoa(X)) :- 
+    write('- '), write(X), write(' está definido como pessoa na base.'), nl.
+
+explicar_base(filosofo(X)) :- 
+    write('- '), write(X), write(' é filósofo segundo a base de conhecimento.'), nl.
+
+explicar_base(grego(X)) :- 
+    write('- '), write(X), write(' é grego segundo a base.'), nl.
+
+explicar_base(mortal(X)) :- 
+    write('- '), write(X), write(' é mortal porque está no conjunto de mortais.'), nl.
+
+explicar_base(humano_mortal(X)) :- 
+    write('- '), write(X), write(' é mortal porque é uma pessoa e todo humano é mortal.'), nl.
+
+explicar_base(sabio(X)) :- 
+    write('- '), write(X), write(' é sábio porque é filósofo e é grego.'), nl.
+
+explicar_base(irmao(X, Y)) :- 
+    write('- '), write(X), write(' e '), write(Y), write(' são irmãos porque possuem pelo menos um progenitor em comum.'), nl.
+
+explicar_base(avo(X, Y)) :- 
+    write('- '), write(X), write(' é avô ou avó de '), write(Y), write(' porque é progenitor de um progenitor.'), nl.
+
+explicar_base(tio(X, Y)) :- 
+    write('- '), write(X), write(' é tio ou tia de '), write(Y), write(' porque é irmão de um dos progenitores.'), nl.
+
+explicar_base(primo(X, Y)) :- 
+    write('- '), write(X), write(' e '), write(Y), write(' são primos porque seus pais são irmãos.'), nl.
+
 /*
 DOCUMENTAÇÃO E USO
 Este sistema é uma demonstração de lógica formal em Prolog, abrangendo conceitos como inferência lógica, operadores lógicos, quantificadores, silogismos e relações de parentesco. Ele inclui uma base de conhecimento com pessoas, filósofos e regras de inferência.
