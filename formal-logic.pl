@@ -1,5 +1,36 @@
 % SISTEMA DE LÓGICA FORMAL EM PROLOG
-% Demonstração de conceitos fundamentais de lógica formal
+% Demonstração de conceitos fundamentais de lógica formal  
+% MENU INTERATIVO 
+% O sistema oferece opções e executa baseado na escolha do usuário.
+
+menu_interativo :- 
+    nl,
+    write('====== MENU DO SISTEMA DE LOGICA FORMAL ======'), nl,
+    write('1. Listar pessoas'), nl,
+    write('2. Listar filosofos'), nl,
+    write('3. Listar sabios'), nl,
+    write('4. Consultar uma pessoa'), nl,
+    write('5. Executar todos os testes'), nl,
+    write('6. Verificar consistencia'), nl,
+    write('7. Demonstracao completa'), nl,
+    write('8. Sair'), nl,
+    write('Digite uma opcao (1-8): '), 
+    read(Opcao), 
+    executar_opcao(Opcao).
+
+executar_opcao(1) :- listar_pessoas, menu_interativo.
+executar_opcao(2) :- listar_filosofos, menu_interativo.
+executar_opcao(3) :- listar_sabios, menu_interativo.
+executar_opcao(4) :- 
+    write('Digite o nome da pessoa (com ponto no final): '), 
+    read(Pessoa), 
+    consultar_pessoa(Pessoa), 
+    menu_interativo.
+executar_opcao(5) :- executar_todos_testes, menu_interativo.
+executar_opcao(6) :- verificar_consistencia, menu_interativo.
+executar_opcao(7) :- demonstracao, menu_interativo.
+executar_opcao(8) :- write('Saindo do sistema. Ate logo!'), nl.
+executar_opcao(_) :- write('Opcao invalida, tente novamente.'), nl, menu_interativo.
 
 PARTE 1: BASE DE CONHECIMENTO
 % Pessoas na base de conhecimento
