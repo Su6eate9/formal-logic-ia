@@ -286,4 +286,18 @@ Este sistema foi desenvolvido para fins educacionais, demonstrando:
 
 ---
 
-**Desenvolvido para demonstração de conceitos de Lógica Formal aplicados em Prolog**
+/*  ===========================================================  
+   SISTEMA DE LÓGICA FORMAL EM PROLOG  
+   Desenvolvido por  
+   Antonio Claudino Silva Neto  
+   Gabryel Guimaraes Coelho Gomes  
+   Maria Luiza Monteiro  
+   Nickolas Ferreira Maiolino  
+  
+   Este sistema demonstra conceitos fundamentais de lógica:  
+   - Inferência  
+   - Operadores Lógicos  
+   - Quantificadores  
+   - Silogismos  
+   - Relações familiares  
+   ===========================================================   */
