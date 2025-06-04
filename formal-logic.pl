@@ -131,6 +131,24 @@ irmao(X, Y) :-
 avo(X, Z) :- 
     progenitor(X, Y),
     progenitor(Y, Z).
+    
+% Neto ou neta
+neto(X, Y) :- 
+    progenitor(Y, Z), 
+    progenitor(Z, X).
+
+% Tio ou tia
+tio(X, Y) :- 
+    progenitor(Z, Y), 
+    irmao(X, Z).
+
+% Primo ou prima
+primo(X, Y) :- 
+    progenitor(Z, X), 
+    progenitor(W, Y), 
+    irmao(Z, W),
+    X \= Y.
+
 
 % PARTE 7: PREDICADOS DE UTILIDADE
 % Lista todas as pessoas
