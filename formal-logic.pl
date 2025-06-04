@@ -67,6 +67,20 @@ nao_filosofo(X) :-
     pessoa(X),     % Garante que X é uma pessoa da base
     \+ filosofo(X). % E que NÃO é um filósofo
 
+% === OPERADOR CONDICIONAL (SE → ENTÃO) ===
+% condicional(P, Q) é verdadeiro se P for falso OU Q for verdadeiro.
+% Representa a lógica: "Se P então Q".
+
+condicional(P, Q) :- 
+    \+ call(P); call(Q).
+
+% bicondicional (↔) ===
+% bicondicional(P, Q) é verdadeiro se P e Q tiverem o mesmo valor lógico.
+% Ou seja, ambos verdadeiros ou ambos falsos.
+
+bicondicional(P, Q) :- 
+    (call(P), call(Q)); 
+    (\+ call(P), \+ call(Q)).
 
 % PARTE 4: QUANTIFICADORES
 % Quantificador Universal - todos são mortais
