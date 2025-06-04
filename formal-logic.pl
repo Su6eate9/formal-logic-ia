@@ -82,6 +82,13 @@ bicondicional(P, Q) :-
     (call(P), call(Q)); 
     (\+ call(P), \+ call(Q)).
 
+% Exclusivo (XOR) ===
+% xor(P, Q) é verdadeiro se P ou Q forem verdadeiros, mas NÃO ambos.
+
+xor(P, Q) :- 
+    (call(P), \+ call(Q));
+    (\+ call(P), call(Q)).
+
 % PARTE 4: QUANTIFICADORES
 % Quantificador Universal - todos são mortais
 todos_mortais :- 
