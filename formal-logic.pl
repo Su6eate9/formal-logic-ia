@@ -58,9 +58,15 @@ interessante(X) :-
 interessante(X) :- 
     grego(X).
 
-% Negação (NOT)
+
+% Negação (NOT) ===
+% O predicado nao_filosofo verifica se uma pessoa NÃO é filósofo.
+% Funciona utilizando a negação em Prolog (\+), que significa "não é provado que...".
+
 nao_filosofo(X) :- 
-    pessoa(X),
+    pessoa(X),     % Garante que X é uma pessoa da base
+    \+ filosofo(X). % E que NÃO é um filósofo
+
 
 % PARTE 4: QUANTIFICADORES
 % Quantificador Universal - todos são mortais
