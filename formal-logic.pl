@@ -1,7 +1,38 @@
 % SISTEMA DE LÓGICA FORMAL EM PROLOG
-% Demonstração de conceitos fundamentais de lógica formal
+% Demonstração de conceitos fundamentais de lógica formal  
+% MENU INTERATIVO 
+% O sistema oferece opções e executa baseado na escolha do usuário.
 
-PARTE 1: BASE DE CONHECIMENTO
+menu_interativo :- 
+    nl,
+    write('====== MENU DO SISTEMA DE LOGICA FORMAL ======'), nl,
+    write('1. Listar pessoas'), nl,
+    write('2. Listar filosofos'), nl,
+    write('3. Listar sabios'), nl,
+    write('4. Consultar uma pessoa'), nl,
+    write('5. Executar todos os testes'), nl,
+    write('6. Verificar consistencia'), nl,
+    write('7. Demonstracao completa'), nl,
+    write('8. Sair'), nl,
+    write('Digite uma opcao (1-8): '), 
+    read(Opcao), 
+    executar_opcao(Opcao).
+
+executar_opcao(1) :- listar_pessoas, menu_interativo.
+executar_opcao(2) :- listar_filosofos, menu_interativo.
+executar_opcao(3) :- listar_sabios, menu_interativo.
+executar_opcao(4) :- 
+    write('Digite o nome da pessoa (com ponto no final): '), 
+    read(Pessoa), 
+    consultar_pessoa(Pessoa), 
+    menu_interativo.
+executar_opcao(5) :- executar_todos_testes, menu_interativo.
+executar_opcao(6) :- verificar_consistencia, menu_interativo.
+executar_opcao(7) :- demonstracao, menu_interativo.
+executar_opcao(8) :- write('Saindo do sistema. Ate logo!'), nl.
+executar_opcao(_) :- write('Opcao invalida, tente novamente.'), nl, menu_interativo.
+
+% PARTE 1: BASE DE CONHECIMENTO
 % Pessoas na base de conhecimento
 pessoa(socrates).
 pessoa(aristoteles).
@@ -59,8 +90,30 @@ interessante(X) :-
     grego(X).
 
 % Negação (NOT)
+% O predicado nao_filosofo verifica se uma pessoa NÃO é filósofo.
+% Funciona utilizando a negação em Prolog (\+), que significa "não é provado que...".
 nao_filosofo(X) :- 
-    pessoa(X),
+    pessoa(X),     % Garante que X é uma pessoa da base
+    \+ filosofo(X). % E que NÃO é um filósofo
+
+% OPERADOR CONDICIONAL (SE → ENTÃO)
+% condicional(P, Q) é verdadeiro se P for falso OU Q for verdadeiro.
+% Representa a lógica: "Se P então Q".
+condicional(P, Q) :- 
+    \+ call(P); call(Q).
+
+% BICONDICIONAL (↔)
+% bicondicional(P, Q) é verdadeiro se P e Q tiverem o mesmo valor lógico.
+% Ou seja, ambos verdadeiros ou ambos falsos.
+bicondicional(P, Q) :- 
+    (call(P), call(Q)); 
+    (\+ call(P), \+ call(Q)).
+
+% XOR EXCLUSIVO
+% xor(P, Q) é verdadeiro se P ou Q forem verdadeiros, mas NÃO ambos.
+xor(P, Q) :- 
+    (call(P), \+ call(Q));
+    (\+ call(P), call(Q)).
 
 % PARTE 4: QUANTIFICADORES
 % Quantificador Universal - todos são mortais
@@ -104,6 +157,23 @@ irmao(X, Y) :-
 avo(X, Z) :- 
     progenitor(X, Y),
     progenitor(Y, Z).
+    
+% Neto ou neta
+neto(X, Y) :- 
+    progenitor(Y, Z), 
+    progenitor(Z, X).
+
+% Tio ou tia
+tio(X, Y) :- 
+    progenitor(Z, Y), 
+    irmao(X, Z).
+
+% Primo ou prima
+primo(X, Y) :- 
+    progenitor(Z, X), 
+    progenitor(W, Y), 
+    irmao(Z, W),
+    X \= Y.
 
 % PARTE 7: PREDICADOS DE UTILIDADE
 % Lista todas as pessoas
@@ -189,8 +259,8 @@ menu :-
     write('- consultar_pessoa(X).'), nl,
     nl.
 
-    % PARTE 10: PREDICADOS ESPECIAIS
-    % Verifica consistência da base
+% PARTE 10: PREDICADOS ESPECIAIS
+% Verifica consistência da base
 verificar_consistencia :-
     write('=== VERIFICACAO DE CONSISTENCIA ==='), nl,
     (todos_mortais -> write('- Base consistente: todos mortais') ; write('- Inconsistencia detectada')), nl,
@@ -209,6 +279,48 @@ demonstracao :-
     write('4. Testando inferencias:'), nl,
     teste_inferencia,
     write('Demonstracao concluida!'), nl.
+
+% PARTE 11: EXPLICABILIDADE DO RACIOCÍNIO
+% O predicado explicar(P) tenta explicar porque P é verdadeiro.
+explicar(P) :- 
+    call(P), 
+    write('O fato '), write(P), write(' é verdadeiro porque:'), nl,
+    explicar_base(P), !.
+
+explicar(P) :- 
+    \+ call(P), 
+    write('O fato '), write(P), write(' é falso ou não pode ser provado.'), nl.
+
+% Regras específicas de explicação
+explicar_base(pessoa(X)) :- 
+    write('- '), write(X), write(' está definido como pessoa na base.'), nl.
+
+explicar_base(filosofo(X)) :- 
+    write('- '), write(X), write(' é filósofo segundo a base de conhecimento.'), nl.
+
+explicar_base(grego(X)) :- 
+    write('- '), write(X), write(' é grego segundo a base.'), nl.
+
+explicar_base(mortal(X)) :- 
+    write('- '), write(X), write(' é mortal porque está no conjunto de mortais.'), nl.
+
+explicar_base(humano_mortal(X)) :- 
+    write('- '), write(X), write(' é mortal porque é uma pessoa e todo humano é mortal.'), nl.
+
+explicar_base(sabio(X)) :- 
+    write('- '), write(X), write(' é sábio porque é filósofo e é grego.'), nl.
+
+explicar_base(irmao(X, Y)) :- 
+    write('- '), write(X), write(' e '), write(Y), write(' são irmãos porque possuem pelo menos um progenitor em comum.'), nl.
+
+explicar_base(avo(X, Y)) :- 
+    write('- '), write(X), write(' é avô ou avó de '), write(Y), write(' porque é progenitor de um progenitor.'), nl.
+
+explicar_base(tio(X, Y)) :- 
+    write('- '), write(X), write(' é tio ou tia de '), write(Y), write(' porque é irmão de um dos progenitores.'), nl.
+
+explicar_base(primo(X, Y)) :- 
+    write('- '), write(X), write(' e '), write(Y), write(' são primos porque seus pais são irmãos.'), nl.
 
 /*
 DOCUMENTAÇÃO E USO
