@@ -154,3 +154,87 @@ tem_filhos_pequenos(Cidadao) :-
 
 esta_desempregado(Cidadao) :-
     tem_propriedade(Cidadao, situacao_emprego, desempregado).
+
+% ==================================================================
+% MÓDULO 4: REGRAS DE ELEGIBILIDADE
+% ==================================================================
+
+elegivel_bpc(Cidadao, Justificativa) :-
+    instance_of(Cidadao, cidadao),
+    (   (eh_idoso(Cidadao), 
+         Tipo = 'BPC Idoso') 
+    ;   (eh_pessoa_deficiencia(Cidadao), 
+         Tipo = 'BPC Deficiencia')
+    ),
+    eh_baixa_renda(Cidadao),
+    tem_propriedade(Cidadao, renda_familiar, Renda),
+    Justificativa = [
+        tipo(Tipo),
+        criterio_renda_atendido(Renda =< 550),
+        valor_mensal(1320),
+        orgao('INSS')
+    ].
+
+elegivel_auxilio_brasil(Cidadao, Justificativa) :-
+    instance_of(Cidadao, cidadao),
+    tem_propriedade(Cidadao, renda_familiar, Renda),
+    Renda =< 210,
+    calcular_valor_auxilio_brasil(Cidadao, ValorFinal),
+    Justificativa = [
+        tipo('Auxilio Brasil'),
+        renda_per_capita(Renda),
+        valor_calculado(ValorFinal),
+        orgao('Ministerio da Cidadania')
+    ].
+
+calcular_valor_auxilio_brasil(Cidadao, ValorFinal) :-
+    tem_propriedade(Cidadao, num_filhos, NumFilhos),
+    ValorBase = 400,
+    ValorPorFilho = 142,
+    ValorFamiliar is NumFilhos * ValorPorFilho,
+    ValorFinal is ValorBase + ValorFamiliar.
+
+elegivel_vale_gas(Cidadao, Justificativa) :-
+    elegivel_auxilio_brasil(Cidadao, _),
+    Justificativa = [
+        tipo('Vale Gas'),
+        vinculado_a('Auxilio Brasil'),
+        valor_bimestral(102),
+        periodicidade('A cada 2 meses')
+    ].
+
+elegivel_tarifa_social_energia(Cidadao, Justificativa) :-
+    instance_of(Cidadao, cidadao),
+    (   eh_baixa_renda(Cidadao)
+    ;   elegivel_bpc(Cidadao, _)
+    ),
+    Justificativa = [
+        tipo('Tarifa Social de Energia'),
+        desconto('Ate 65%'),
+        aplicacao('Conta de luz'),
+        orgao('ANEEL')
+    ].
+
+elegivel_passe_livre(Cidadao, Justificativa) :-
+    instance_of(Cidadao, cidadao),
+    eh_pessoa_deficiencia(Cidadao),
+    eh_baixa_renda(Cidadao),
+    Justificativa = [
+        tipo('Passe Livre Interestadual'),
+        requisito('Pessoa com deficiencia + baixa renda'),
+        beneficio('Transporte gratuito'),
+        orgao('Ministerio dos Transportes')
+    ].
+
+elegivel_auxilio_creche(Cidadao, Justificativa) :-
+    instance_of(Cidadao, cidadao),
+    tem_filhos_pequenos(Cidadao),
+    eh_baixa_renda(Cidadao),
+    tem_propriedade(Cidadao, num_filhos, NumFilhos),
+    ValorTotal is NumFilhos * 200,
+    Justificativa = [
+        tipo('Auxilio Creche'),
+        num_filhos(NumFilhos),
+        valor_total(ValorTotal),
+        orgao('Prefeitura Municipal')
+    ].
