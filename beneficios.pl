@@ -238,3 +238,66 @@ elegivel_auxilio_creche(Cidadao, Justificativa) :-
         valor_total(ValorTotal),
         orgao('Prefeitura Municipal')
     ].
+
+% ==================================================================
+% MÓDULO 5: ANÁLISE COMPLETA
+% ==================================================================
+
+analisar_cidadao(Cidadao, ResultadoCompleto) :-
+    instance_of(Cidadao, cidadao),
+    findall(
+        beneficio(Tipo, Detalhes),
+        (   elegivel_bpc(Cidadao, Detalhes), Tipo = bpc
+        ;   elegivel_auxilio_brasil(Cidadao, Detalhes), Tipo = auxilio_brasil
+        ;   elegivel_vale_gas(Cidadao, Detalhes), Tipo = vale_gas
+        ;   elegivel_tarifa_social_energia(Cidadao, Detalhes), Tipo = tarifa_social_energia
+        ;   elegivel_passe_livre(Cidadao, Detalhes), Tipo = passe_livre
+        ;   elegivel_auxilio_creche(Cidadao, Detalhes), Tipo = auxilio_creche
+        ),
+        BeneficiosElegiveis
+    ),
+    calcular_valor_total_beneficios(BeneficiosElegiveis, ValorTotalMensal),
+    obter_perfil_cidadao(Cidadao, PerfilCompleto),
+    ResultadoCompleto = [
+        cidadao(Cidadao),
+        perfil(PerfilCompleto),
+        beneficios_elegiveis(BeneficiosElegiveis),
+        valor_total_mensal(ValorTotalMensal),
+        data_analise(2025)
+    ].
+
+obter_perfil_cidadao(Cidadao, Perfil) :-
+    tem_propriedade(Cidadao, idade, Idade),
+    tem_propriedade(Cidadao, renda_familiar, Renda),
+    tem_propriedade(Cidadao, num_filhos, Filhos),
+    tem_propriedade(Cidadao, situacao_emprego, Emprego),
+    tem_propriedade(Cidadao, tem_deficiencia, Deficiencia),
+    tem_propriedade(Cidadao, estado, Estado),
+    tem_propriedade(Cidadao, cidade, Cidade),
+    
+    (eh_idoso(Cidadao) -> ClassificacaoIdade = idoso ; ClassificacaoIdade = adulto),
+    (eh_baixa_renda(Cidadao) -> ClassificacaoRenda = baixa_renda ; ClassificacaoRenda = renda_regular),
+    
+    Perfil = [
+        idade(Idade),
+        classificacao_idade(ClassificacaoIdade),
+        renda_familiar(Renda),
+        classificacao_renda(ClassificacaoRenda),
+        num_filhos(Filhos),
+        situacao_emprego(Emprego),
+        tem_deficiencia(Deficiencia),
+        localizacao(Estado-Cidade)
+    ].
+
+calcular_valor_total_beneficios([], 0).
+calcular_valor_total_beneficios([beneficio(_, Detalhes)|Resto], ValorTotal) :-
+    extrair_valor_beneficio(Detalhes, Valor),
+    calcular_valor_total_beneficios(Resto, ValorResto),
+    ValorTotal is Valor + ValorResto.
+
+extrair_valor_beneficio(Detalhes, Valor) :-
+    (   member(valor_mensal(V), Detalhes) -> Valor = V
+    ;   member(valor_calculado(V), Detalhes) -> Valor = V
+    ;   member(valor_total(V), Detalhes) -> Valor = V
+    ;   Valor = 0
+    ).
