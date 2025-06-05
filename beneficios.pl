@@ -301,3 +301,75 @@ extrair_valor_beneficio(Detalhes, Valor) :-
     ;   member(valor_total(V), Detalhes) -> Valor = V
     ;   Valor = 0
     ).
+
+% ==================================================================
+% MÓDULO 6: SISTEMA DE TESTES
+% ==================================================================
+
+executar_teste_completo :-
+    write('=== SISTEMA DE BENEFICIOS SOCIAIS - TESTE COMPLETO ==='), nl, nl,
+    
+    write('TESTE 1: Analise Individual'), nl,
+    write('----------------------------------------'), nl,
+    analisar_cidadao(maria_silva, ResultadoMaria),
+    exibir_resultado_formatado(maria_silva, ResultadoMaria),
+    nl,
+    
+    write('TESTE 2: Verificacao de outros cidadaos'), nl,
+    write('----------------------------------------'), nl,
+    analisar_cidadao(pedro_oliveira, ResultadoPedro),
+    exibir_resultado_formatado(pedro_oliveira, ResultadoPedro),
+    nl,
+    
+    write('=== TESTES CONCLUIDOS ==='), nl.
+
+exibir_resultado_formatado(Cidadao, Resultado) :-
+    nl,
+    write('===================================================='), nl,
+    write('              ANALISE DO CIDADAO'), nl,
+    write('===================================================='), nl,
+    write('Nome: '), write(Cidadao), nl,
+    member(perfil(Perfil), Resultado),
+    member(idade(Idade), Perfil),
+    member(classificacao_idade(ClassIdade), Perfil),
+    member(renda_familiar(Renda), Perfil),
+    member(classificacao_renda(ClassRenda), Perfil),
+    member(num_filhos(Filhos), Perfil),
+    member(situacao_emprego(Emprego), Perfil),
+    member(tem_deficiencia(Def), Perfil),
+    member(localizacao(Estado-Cidade), Perfil),
+
+    write('Idade: '), write(Idade), write(' anos ('), write(ClassIdade), write(')'), nl,
+    write('Renda Familiar: R$ '), write(Renda), write(' ('), write(ClassRenda), write(')'), nl,
+    write('Numero de Filhos: '), write(Filhos), nl,
+    write('Situacao de Emprego: '), write(Emprego), nl,
+    write('Pessoa com Deficiencia: '), write(Def), nl,
+    write('Localizacao: '), write(Cidade), write(' - '), write(Estado), nl,
+    nl,
+    
+    write('----------------------------------------------------'), nl,
+    write('          BENEFICIOS ELEGIVEIS'), nl,
+    write('----------------------------------------------------'), nl,
+    member(beneficios_elegiveis(Beneficios), Resultado),
+    (Beneficios = [] ->
+        write('Nenhum beneficio disponivel para este cidadao.'), nl
+    ;
+        exibir_beneficios(Beneficios)
+    ),
+    
+    member(valor_total_mensal(ValorTotal), Resultado),
+    write('----------------------------------------------------'), nl,
+    write('Valor Total Mensal Estimado: R$ '), write(ValorTotal), nl,
+    write('===================================================='), nl, nl.
+
+exibir_beneficios([]).
+exibir_beneficios([beneficio(Nome, Detalhes)|Resto]) :-
+    write('* Beneficio: '), write(Nome), nl,
+    forall(
+        member(Item, Detalhes),
+        (
+            format('    - ~w~n', [Item])
+        )
+    ),
+    nl,
+    exibir_beneficios(Resto).
