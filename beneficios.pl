@@ -35,7 +35,7 @@ cidadao_propriedade(maria_silva, estado, 'SP').
 cidadao_propriedade(maria_silva, cidade, 'São Paulo').
 
 cidadao_propriedade(joao_santos, idade, 35).
-cidadao_propriedade(joao_santos, renda_familiar, 800).
+cidadao_propriedade(joao_santos, renda_familiar, 0).
 cidadao_propriedade(joao_santos, num_filhos, 2).
 cidadao_propriedade(joao_santos, situacao_emprego, desempregado).
 cidadao_propriedade(joao_santos, tem_deficiencia, nao).
