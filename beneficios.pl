@@ -266,6 +266,24 @@ analisar_cidadao(Cidadao, ResultadoCompleto) :-
         data_analise(2025)
     ].
 
+analisar_cidadao_formatado(Cidadao) :-
+    analisar_cidadao(Cidadao, Resultado),
+    exibir_resultado_formatado(Cidadao, Resultado).
+
+analisar_cidadaos :-
+    findall(
+        Cidadao,
+        instance_of(Cidadao, cidadao),
+        Cidadaos
+    ),
+    forall(
+        member(C, Cidadaos),
+        (
+            analisar_cidadao(C, Resultado),
+            exibir_resultado_formatado(C, Resultado)
+        )
+    ).
+
 obter_perfil_cidadao(Cidadao, Perfil) :-
     tem_propriedade(Cidadao, idade, Idade),
     tem_propriedade(Cidadao, renda_familiar, Renda),
