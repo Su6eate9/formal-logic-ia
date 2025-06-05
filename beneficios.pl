@@ -373,3 +373,31 @@ exibir_beneficios([beneficio(Nome, Detalhes)|Resto]) :-
     ),
     nl,
     exibir_beneficios(Resto).
+
+% ==================================================================
+% PREDICADOS DE CONSULTA
+% ==================================================================
+
+listar_todos_cidadaos :-
+    findall(C, instance_of(C, cidadao), Cidadaos),
+    write('Cidadaos cadastrados: '), write(Cidadaos), nl.
+
+consultar_beneficios_disponiveis :-
+    write('Beneficios disponiveis: '), nl,
+    forall(
+        beneficio_definicao(_, Props),
+        (
+            member(nome(Nome), Props),
+            write(' - '), write(Nome), nl
+        )
+    ).
+
+% Menu de comandos disponíveis
+menu :-
+    write('=== COMANDOS DISPONIVEIS ==='), nl,
+    write('1. analisar_cidadao(Cidadao, Resultado).'), nl,
+    write('2. executar_teste_completo.'), nl,
+    write('3. listar_todos_cidadaos.'), nl,
+    write('4. consultar_beneficios_disponiveis.'), nl,
+    write('5. menu.'), nl,
+    nl.
