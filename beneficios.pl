@@ -123,3 +123,34 @@ beneficio_definicao(auxilio_creche, [
     orgao_responsavel('Prefeitura Municipal'),
     descricao('Auxilio para creche de filhos de baixa renda')
 ]).
+
+% ==================================================================
+% MÓDULO 3: PREDICADOS DE CLASSIFICAÇÃO
+% ==================================================================
+
+tem_propriedade(Cidadao, Propriedade, Valor) :-
+    cidadao_propriedade(Cidadao, Propriedade, Valor).
+
+eh_idoso(Cidadao) :-
+    tem_propriedade(Cidadao, idade, Idade),
+    Idade >= 65,
+    instance_of(Cidadao, cidadao).
+
+eh_pessoa_deficiencia(Cidadao) :-
+    tem_propriedade(Cidadao, tem_deficiencia, sim),
+    instance_of(Cidadao, cidadao).
+
+eh_baixa_renda(Cidadao) :-
+    tem_propriedade(Cidadao, renda_familiar, Renda),
+    Renda =< 550.
+
+eh_extrema_pobreza(Cidadao) :-
+    tem_propriedade(Cidadao, renda_familiar, Renda),
+    Renda =< 105.
+
+tem_filhos_pequenos(Cidadao) :-
+    tem_propriedade(Cidadao, num_filhos, NumFilhos),
+    NumFilhos > 0.
+
+esta_desempregado(Cidadao) :-
+    tem_propriedade(Cidadao, situacao_emprego, desempregado).
