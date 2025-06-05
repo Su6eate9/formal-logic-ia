@@ -65,3 +65,61 @@ cidadao_propriedade(lucia_fernandes, situacao_emprego, aposentada).
 cidadao_propriedade(lucia_fernandes, tem_deficiencia, nao).
 cidadao_propriedade(lucia_fernandes, estado, 'RS').
 cidadao_propriedade(lucia_fernandes, cidade, 'Porto Alegre').
+
+% ==================================================================
+% MÓDULO 2: DEFINIÇÃO DOS BENEFÍCIOS
+% ==================================================================
+
+beneficio_definicao(bpc, [
+    nome('Beneficio de Prestacao Continuada'),
+    valor(1320),
+    tipo(beneficio_assistencial),
+    orgao_responsavel('INSS'),
+    base_legal('Lei 8.742/1993'),
+    descricao('Beneficio mensal para idosos e pessoas com deficiencia')
+]).
+
+beneficio_definicao(auxilio_brasil, [
+    nome('Auxilio Brasil'),
+    valor_minimo(400),
+    valor_maximo(1000),
+    tipo(auxilio_financeiro),
+    orgao_responsavel('Ministerio da Cidadania'),
+    base_legal('Lei 14.284/2021'),
+    descricao('Programa de transferencia de renda')
+]).
+
+beneficio_definicao(vale_gas, [
+    nome('Auxilio Gas dos Brasileiros'),
+    valor(102),
+    tipo(auxilio_financeiro),
+    periodicidade(bimestral),
+    orgao_responsavel('Ministerio da Cidadania'),
+    base_legal('Lei 14.237/2021'),
+    descricao('Auxilio para compra de gas de cozinha')
+]).
+
+beneficio_definicao(tarifa_social_energia, [
+    nome('Tarifa Social de Energia Eletrica'),
+    desconto_percentual(65),
+    tipo(beneficio_social),
+    orgao_responsavel('ANEEL'),
+    base_legal('Lei 12.212/2010'),
+    descricao('Desconto na conta de energia eletrica')
+]).
+
+beneficio_definicao(passe_livre, [
+    nome('Passe Livre Interestadual'),
+    tipo(servico_publico),
+    orgao_responsavel('Ministerio dos Transportes'),
+    base_legal('Lei 8.899/1994'),
+    descricao('Gratuidade no transporte interestadual')
+]).
+
+beneficio_definicao(auxilio_creche, [
+    nome('Auxílio Creche'),
+    valor(200),
+    tipo(servico_publico),
+    orgao_responsavel('Prefeitura Municipal'),
+    descricao('Auxilio para creche de filhos de baixa renda')
+]).
