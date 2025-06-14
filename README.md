@@ -287,17 +287,33 @@ Este sistema foi desenvolvido para fins educacionais, demonstrando:
 ---
 
 /*  ===========================================================  
-   SISTEMA DE LÓGICA FORMAL EM PROLOG  
-   Desenvolvido por  
+
+   Reconhecimentos e Direitos Autorais  
+@autor:  
    Antonio Claudino Silva Neto  
    Gabryel Guimaraes Coelho Gomes  
    Maria Luiza Monteiro  
    Nickolas Ferreira Maiolino  
+
+@data última versão: 13/06/2025  
+@versão: 1.0  
+@outros repositórios: [https://github.com/Su6eate9/formal-logic-ia]  
+@Agradecimentos: Universidade Federal do Maranhão (UFMA), Professor Doutor  
+Thales Levi Azevedo Valente, e colegas de curso.  
   
-   Este sistema demonstra conceitos fundamentais de lógica:  
-   - Inferência  
-   - Operadores Lógicos  
-   - Quantificadores  
-   - Silogismos  
-   - Relações familiares  
-   ===========================================================   */
+Copyright/License
+Este material é resultado de um trabalho acadêmico para a disciplina
+INTELIGÊNCIA ARTIFICIAL, sob a orientação do professor Dr. THALES LEVI
+AZEVEDO VALENTE, semestre letivo 2025.1, curso Engenharia da Computação,
+na Universidade Federal do Maranhão (UFMA). Todo o material sob esta licença é
+software livre: pode ser usado para fins acadêmicos e comerciais sem nenhum custo.
+Não há papelada, nem royalties, nem restrições de "copyleft" do tipo GNU. Ele é
+licenciado sob os termos da Licença MIT, conforme descrito abaixo, e, portanto, é
+compatível com a GPL e também se qualifica como software de código aberto. É de
+domínio público. Os detalhes legais estão abaixo. O espírito desta licença é que você
+é livre para usar este material para qualquer finalidade, sem nenhum custo. O único
+requisito é que, se você usá-los, nos dê crédito.
+Licenciado sob a Licença MIT. Permissão é concedida, gratuitamente, a qualquer
+pessoa que obtenha uma cópia deste software e dos arquivos de documentação
+associados (o "Software"), para lidar no Software sem restrição, incluindo sem
+limitação os direitos de usar, copiar, modificar, mesclar, publicar, distribuir,
